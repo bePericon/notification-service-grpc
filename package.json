@@ -1,0 +1,32 @@
+{
+	"name": "notification-service",
+	"version": "1.0.0",
+	"description": "Simple notification service with Node.js, TypeScript and gRPC",
+	"main": "dist/index.js",
+	"scripts": {
+		"build": "rimraf dist && tsc",
+		"start": "node dist/index.js",
+		"dev": "ts-node-dev --respawn src/index.ts",
+		"generate-proto": "mkdir -p generated && protoc --plugin=./node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=./generated --ts_proto_opt=grpc=grpc-js,forceLong=string -I ./src/proto ./src/proto/*.proto",
+		"clean-proto": "rimraf generated",
+		"predev": "npm run clean-proto && npm run generate-proto",
+		"prestart": "npm run clean-proto && npm run generate-proto && npm run build"
+	},
+	"keywords": [],
+	"author": "",
+	"license": "ISC",
+	"devDependencies": {
+		"@grpc/grpc-js": "^1.13.3",
+		"@grpc/proto-loader": "^0.7.15",
+		"@types/node": "^20.14.0",
+		"rimraf": "^5.0.10",
+		"ts-node-dev": "^2.0.0",
+		"ts-proto": "^1.181.2",
+		"typescript": "^5.8.3"
+	},
+	"dependencies": {
+		"@types/nodemailer": "^6.4.17",
+		"dotenv": "^16.5.0",
+		"nodemailer": "^7.0.3"
+	}
+}
